@@ -39,10 +39,15 @@ public class spawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-		//MacFullscreenMode.FullscreenWindow;
 
-		lastSpawnTime = Time.time;
+        // using the StandaloneFileBrowser plugin to allow user folder select
+        var paths = SFB.StandaloneFileBrowser.OpenFolderPanel("Open Folder", "", false);
+        path = paths[0].ToString();
+        Debug.Log(path);
+
+        //MacFullscreenMode.FullscreenWindow;
+
+        lastSpawnTime = Time.time;
 
 		TextureRefresh ();
 
@@ -61,21 +66,33 @@ public class spawner : MonoBehaviour {
 		// check out directory for all image files available
 		DirectoryInfo dir = new DirectoryInfo(path);
 
-		if(!Application.isEditor)
-			dir = new DirectoryInfo(Application.dataPath + "/../../scans/");
+		//if(!Application.isEditor)
+		//	dir = new DirectoryInfo(Application.dataPath + "/../../scans/");
 
-		// do so by date, newest first
-		FileInfo[] info = dir.GetFiles("*.jpg").OrderByDescending(f => f.LastWriteTime).ToArray();
+        // do so by date, newest first
+        string[] extensions = new[] { ".jpg", ".tiff", ".bmp", ".png" };
+
+        FileInfo[] info =
+            dir.EnumerateFiles()
+                 .Where(f => extensions.Contains(f.Extension.ToLower()))
+                 .OrderByDescending(f => f.LastWriteTime)
+                 .ToArray();
+
+        //FileInfo[] info = dir.GetFiles("*.jpg").OrderByDescending(f => f.LastWriteTime).ToArray();
+
+        Debug.Log(info);
 
 		foreach(FileInfo f in info) {
 
 			// new one!
 			filePath = f.ToString();
 
+            Debug.Log(filePath);
+
 			// if running as build gotta change path
-			if (!Application.isEditor) {
-				filePath = Application.dataPath + "/../../scans/" + filePath;
-			}
+			//if (!Application.isEditor) 
+			//	filePath = Application.dataPath + "/../../scans/" + filePath;
+			
 
 			Texture2D newTex = LoadPNG (filePath);
 			signTextures.Add (newTex);
@@ -98,7 +115,7 @@ public class spawner : MonoBehaviour {
 			int numSigns = SpawnNew ();
 
 			// make them spawn faster if there are more signs made
-			SpawnInterval = (float)Map (numSigns, 0f, ProtesterCap, maxSpawnInterval, minSpawnInterval);
+			//SpawnInterval = (float)Map (numSigns, 0f, ProtesterCap, maxSpawnInterval, minSpawnInterval);
 
 			// dont let it go outside of acceptable range
 			SpawnInterval = Mathf.Clamp (SpawnInterval, minSpawnInterval, maxSpawnInterval);
@@ -179,11 +196,18 @@ public class spawner : MonoBehaviour {
 		// check out directory for all image files available
 		DirectoryInfo dir = new DirectoryInfo(path);
 
-		if(!Application.isEditor)
-			dir = new DirectoryInfo(Application.dataPath + "/../../scans/");
+		//if(!Application.isEditor)
+		//	dir = new DirectoryInfo(Application.dataPath + "/../../scans/");
 
-		// do so by date, newest first
-		FileInfo[] info = dir.GetFiles("*.jpg").OrderByDescending(f => f.LastWriteTime).ToArray();
+        // do so by date, newest first
+        string[] extensions = new[] { ".jpg", ".tiff", ".bmp", ".png" };
+
+        FileInfo[] info =
+            dir.EnumerateFiles()
+                 .Where(f => extensions.Contains(f.Extension.ToLower()))
+                 .OrderByDescending(f => f.LastWriteTime)
+                 .ToArray();
+
 
 		if (info.Length > signTextures.Count) {
 			
@@ -191,9 +215,9 @@ public class spawner : MonoBehaviour {
 			filePath = info [0].ToString ();
 
 			// if running as build gotta change path
-			if (!Application.isEditor) {
-				filePath = Application.dataPath + "/../../scans/" + filePath;
-			}
+			//if (!Application.isEditor) {
+			//	filePath = Application.dataPath + "/../../scans/" + filePath;
+			//}
 
 			// so next time it'll know if there's a new one
 //			lastImgLoaded = filePath;
