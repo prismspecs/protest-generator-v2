@@ -11,7 +11,10 @@ public class IKHandler : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator> ();
-	}
+
+        // sort of hacky for now
+        IKtarget = transform.Find("mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/Sign Post/Grab Handler").transform;
+    }
 	
 	// Update is called once per frame
 	void Update () {

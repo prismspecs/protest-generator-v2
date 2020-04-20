@@ -13,9 +13,10 @@ public class walk : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
-		// migrated all this over to spawner
-	}
+		// sort of hackish for now, find the sign in children
+        // probs a better way to make this happen automagically
+        Sign = transform.Find("mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/Sign Post/Sign intermediary/Sign").gameObject;
+    }
 
 	public void SetSign(string imgPath) {
 		StartCoroutine (YieldLoad(imgPath));
