@@ -1,5 +1,7 @@
 # Protest Generator v2
 
+![Screenshot.png](Screenshot.png)
+
 + an interactive software built with Unity that allows participants to create protest signs which are then carried across the screen by virtual demonstrators. This is useful for projection, installations, and covid-safe socially-distanced protests online.
 
 ## To do
