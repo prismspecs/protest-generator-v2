@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using System.Linq;	// needed for ordering
 using System.Collections.Generic; // array lists
+using UnityEngine.UI;
 
 public class spawner : MonoBehaviour {
 
@@ -19,8 +20,8 @@ public class spawner : MonoBehaviour {
 
 
 	public float SpawnInterval = .6f;
-	public float maxSpawnInterval = 15f;
-	public float minSpawnInterval = .8f;
+	public float maxSpawnInterval = 12f;
+	public float minSpawnInterval = .5f;
 	public float randomSpawnInterval = .8f;
 	private float lastSpawnTime = -99f;
 	public int ProtesterCap = 200;
@@ -28,6 +29,9 @@ public class spawner : MonoBehaviour {
 	// vary the order and starting Z of protesters
 	private float spawnZ = -1f;
 	private int protesterId = 0;
+
+	// UI
+	public Text diagnosticText;
 
 
 	// texture stuff
@@ -101,6 +105,20 @@ public class spawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		// adjust timings w keys
+		if(Input.GetKeyUp(KeyCode.UpArrow)) {
+			maxSpawnInterval-=.5f;
+			if(maxSpawnInterval < minSpawnInterval) maxSpawnInterval = minSpawnInterval + 1.0f;
+			diagnosticText.text = maxSpawnInterval.ToString();
+		}
+		if(Input.GetKeyUp(KeyCode.DownArrow)) {
+			maxSpawnInterval+=.5f;
+			diagnosticText.text = maxSpawnInterval.ToString();
+		}
+		if(Input.GetKeyUp(KeyCode.C)) {
+			diagnosticText.text = "";
+		}
 
 		// do we need to refresh texture list? in case of deletion
 //		if (Time.time > LastTextureRefresh + TextureRefreshInterval) {
@@ -238,7 +256,7 @@ public class spawner : MonoBehaviour {
 
 
 		// random coloring
-		Color newColor = new Color( Random.Range(.1f,1f), Random.Range(.1f,1f), Random.Range(.1f,1f), 1.0f );
+		Color newColor = new Color( Random.Range(.25f,1f), Random.Range(.25f,1f), Random.Range(.25f,1f), 1.0f );
 		Renderer[] rends = newProtester.GetComponentsInChildren<Renderer>( );
 
 		foreach (Renderer rend in rends) {
