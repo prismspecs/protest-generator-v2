@@ -2,8 +2,6 @@
 
 + an interactive software built with Unity that allows participants to create protest signs which are then carried across the screen by virtual demonstrators. This is useful for projection, installations, and covid-safe socially-distanced protests online.
 
-![Screenshot.png](Screenshot.png)
-
 A short video of one implementation of the Protest Generator
 
 https://user-images.githubusercontent.com/3711404/129005074-edf7e9d6-9c0b-43bb-8250-b441b6c5acd6.mp4
@@ -14,6 +12,11 @@ https://user-images.githubusercontent.com/3711404/129005074-edf7e9d6-9c0b-43bb-8
 + create a procedural avatar generator
 + handle arbitrary aspect ratio signs
 + add a repo for the online sign making app & fix the aspect ratio there
+
+
+![Screenshot.png](Screenshot.png)
+
+
 
 ## Notes
 
