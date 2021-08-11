@@ -5,6 +5,7 @@
 ![Screenshot.png](Screenshot.png)
 
 A short video of one implementation of the Protest Generator
+
 https://user-images.githubusercontent.com/3711404/129005074-edf7e9d6-9c0b-43bb-8250-b441b6c5acd6.mp4
 
 ## To do
